@@ -1,0 +1,382 @@
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Prototaxites Fossil Discoveries Map</title>
+
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.js"></script>
+
+<style>
+    body { margin: 0; padding: 0; background-color:#a37c40  }
+    #map { position: fixed; top:120; bottom: 0; width: 100%; };
+    #controls {
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      background: rgba(255,255,255,0.95);
+      padding: 1px;
+      border-radius: 1px;
+      max-width: 320px;
+      box-shadow: 0 2px 1px rgba(0,0,0,.2);
+      z-index: 1;
+    }
+    .stage-labels { display:flex; justify-content: space-between; font-size: 12px; color:#555; margin: 6px 0 8px; }
+    #range { width: 100%; }
+  </style>
+</head>
+    
+<body>
+    <button id="northamerica" style="float: left; width: 48%; margin-left:1%; background:#F7ECE1; font-family:serif; font-weight: bold;">North America</button>
+    <button id="europe" style="float: right; width:48%; margin-right:1%; background:#F7ECE1; font-family:serif; font-weight: bold;">Europe</button>
+    <button id="svalbard" style="float: left; width:48%; margin-left:1%; background:#F7ECE1; font-family:serif; font-weight: bold;"> Svalbard</button>
+    <button id="northernafrica" style="float: right; width:48%; margin-right:1%; background:#F7ECE1; font-family:serif; font-weight: bold;">Northern Africa</button>
+    <button id="gaspebay" style="float: left; width:32%; margin-right:1%; margin-left: 1%; background:#F7ECE1; font-family:serif; font-weight: bold;">Gaspè Bay</button>
+    <button id="schunnemunk" style="float: left; width:32%; margin-right:1%; background:#F7ECE1; font-family:serif; font-weight: bold;">Schunnemunk Mountain</button>
+    <button id="cleveland" style="float: left; width:32%; background:#F7ECE1; font-family:serif; font-weight: bold;">Cleveland Shales</button>
+    <button id="uk" style="float: left; width:32%; margin-right:1%; margin-left:1%; background:#F7ECE1; font-family:serif; font-weight: bold;">United Kingdom</button>
+    <button id="germany" style="float:left; width:32%; margin-right:1%; background:#F7ECE1; font-family:serif; font-weight: bold;">Germany</button>
+    <button id="prague" style="float:left; width:32%; background:#F7ECE1; font-family:serif; font-weight: bold;">Prague Basin</button>
+    <button id="tannzetuff" style="float:left; width:32%; margin-right:1%; margin-left:1%; background:#F7ECE1; font-family:serif; font-weight: bold;">Tannzetuff Formation</button>
+    <button id="mimerdalen" style="float:left; width:32%; margin-right:1%; background:#F7ECE1; font-family:serif; font-weight: bold;">Mimerdalen</button>
+    <button id="default" style="float:left; width:32%; background:#F7ECE1; font-family:serif; font-weight: bold;">Default View</button>
+    
+
+<div id='map'></div>
+    
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZW1lcnlncmV5MTIxNyIsImEiOiJjbW0xandkcmIwOXc5Mm9weHJtcDRzc3M3In0.s8h5aEk05cXIjBkbCiXwGQ';  //Put your mapbox access token here
+
+
+        // Load a new map in the 'map' HTML div
+        var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/emerygrey1217/cmmh67mc9002301spfo2ng9ep', // Put your mapbox style URL here
+            center: [-14.090,59.199], // starting position [lng, lat]
+            zoom: 3// starting zoom
+        });
+    
+     map.on('load', function() {
+
+            // Add a CIRCLE layer to the map 
+            map.addLayer({
+                'id':'proto_fossils',
+                'type':'circle',
+                'source':{
+                    type:'vector',
+                    url:'mapbox://emerygrey1217.dbz5ovx7' // Your Mapbox tileset Map ID
+                },
+                'source-layer':'PrototaxitesFossilDiscoveries-aj25m7', // name of tilesets
+                'layout':{
+                    'visibility': 'visible'
+                },
+                "paint": {
+      "circle-radius": [
+        "interpolate",
+        [
+          "linear"
+        ],
+        [
+          "zoom"
+        ],
+        0,
+        1,
+        22,
+        10
+      ],
+      "circle-color": [
+        "match",
+        [
+          "get",
+          "SPECIES"
+        ],
+        [
+          "P. clevelandensis"
+        ],
+        "#9b0303",
+        [
+          "P. storriei"
+        ],
+        "#e62019",
+        [
+          "P. southworthii"
+        ],
+        "#ea6161",
+        [
+          "P. forfarensis"
+        ],
+        "#bf7a03",
+        [
+          "P. tenuis"
+        ],
+        "#de8a1b",
+        [
+          "P. lafontii"
+        ],
+        "#e9ae49",
+        [
+          "P. hicksii"
+        ],
+        "#c7bf23",
+        [
+          "P. caledonianus"
+        ],
+        "#fee135",
+        [
+          "P. saharianus"
+        ],
+        "#f1e97e",
+        [
+          "P. psygmophylloides"
+        ],
+        "#79ad1f",
+        [
+          "P. ortonii"
+        ],
+        "#93cf4f",
+        [
+          "P. crassus"
+        ],
+        "#ccfa75",
+        [
+          "P. loganii"
+        ],
+        "#c70f5f",
+        [
+          "P. dechenaius"
+        ],
+        "#e5528f",
+        [
+          "P. hefterii"
+        ],
+        "#f07ab5",
+        [
+          "P. taitii"
+        ],
+        "#715223",
+        [
+          "P. milwaukeensis"
+        ],
+        "#a88e0b",
+        [
+          "P. laxus"
+        ],
+        "#c4ad68",
+        [
+          "P. sp"
+        ],
+        "#545454",
+        "#000000"
+      ],
+      "circle-stroke-width": 0.5
+    },
+
+            });
+            
+
+        })
+
+   // Define the preset locations
+    const presets = {
+        northamerica: {
+            center: [-72.572,43.258],
+            zoom: 4.8
+        },
+        europe: {
+            center: [7.028,52.966],
+            zoom: 4.9
+        },
+        svalbard: {
+            center: [17.047,78.908],
+            zoom: 6.9
+        },
+        northernafrica: {
+            center: [34.241,26.426],
+            zoom: 5
+        },
+        gaspebay: {
+            center: [-64.255,48.764],
+            zoom: 11
+        },
+        schunnemunk: {
+            center: [-74.096,41.378],
+            zoom: 11
+        },
+        cleveland: {
+            center:[-81.587,41.546],
+            zoom:12
+        },
+        uk: {
+            center: [-0.375,54.161],
+            zoom: 5
+        },
+        germany: {
+            center: [7.452,50.255],
+            zoom: 7
+        },
+        prague: {
+            center: [14.350,50.025],
+            zoom: 9
+        },
+        tannzetuff: {
+            center: [24.737,24.267],
+            zoom: 9.5
+        },
+        mimerdalen: {
+            center: [16.393, 78.712],
+            zoom: 11
+        },
+        default: {
+            center: [-14.090,59.199],
+            zoom: 3   
+        }
+    };
+    //Add zoom control
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+    // Event listeners for the buttons
+    document.getElementById('northamerica').addEventListener('click', () => {
+        map.flyTo({
+            center: presets.northamerica.center,
+            zoom: presets.northamerica.zoom,
+            essential: true // This ensures the animation is considered essential for accessibility
+        });
+    });
+
+    document.getElementById('europe').addEventListener('click', () => {
+        map.flyTo({
+            center: presets.europe.center,
+            zoom: presets.europe.zoom,
+            essential: true
+        });
+    });
+
+    document.getElementById('svalbard').addEventListener('click', () => {
+        map.flyTo({
+            center: presets.svalbard.center,
+            zoom: presets.svalbard.zoom,
+            essential: true // This ensures the animation is considered essential for accessibility
+        });
+    });
+
+    document.getElementById('northernafrica').addEventListener('click', () => {
+        map.flyTo({
+            center: presets.northernafrica.center,
+            zoom: presets.northernafrica.zoom,
+            essential: true
+        });
+    });
+    
+    document.getElementById('gaspebay').addEventListener('click', () => {
+        map.flyTo({
+            center: presets.gaspebay.center,
+            zoom: presets.gaspebay.zoom,
+            essential: true
+        });
+    });  
+    
+    document.getElementById('schunnemunk').addEventListener('click', () =>{
+        map.flyTo({
+            center: presets.schunnemunk.center,
+            zoom:presets.schunnemunk.zoom,
+            essential:true
+        });
+    });
+    
+    document.getElementById('cleveland').addEventListener('click', () => {
+        map.flyTo({
+            center:presets.cleveland.center,
+            zoom:presets.cleveland.zoom,
+            essential:true
+        });        
+    });
+    
+    document.getElementById('uk').addEventListener('click', () => {
+        map.flyTo({
+            center:presets.uk.center,
+            zoom:presets.uk.zoom,
+            essential:true
+        });        
+    });
+  
+    document.getElementById('germany').addEventListener('click', () => {
+        map.flyTo({
+            center:presets.germany.center,
+            zoom:presets.germany.zoom,
+            essential:true
+        });        
+    });
+
+    document.getElementById('prague').addEventListener('click', () => {
+        map.flyTo({
+            center:presets.prague.center,
+            zoom:presets.prague.zoom,
+            essential:true
+        });        
+    });
+
+    document.getElementById('tannzetuff').addEventListener('click', () => {
+        map.flyTo({
+            center:presets.tannzetuff.center,
+            zoom:presets.tannzetuff.zoom,
+            essential:true
+        });        
+    });
+
+    document.getElementById('mimerdalen').addEventListener('click', () => {
+        map.flyTo({
+            center:presets.mimerdalen.center,
+            zoom:presets.mimerdalen.zoom,
+            essential:true
+        });        
+    });
+    
+    document.getElementById('default').addEventListener('click', () => {
+        map.flyTo({
+            center:presets.default.center,
+            zoom:presets.default.zoom,
+            essential:true
+        });        
+    });
+    
+    const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false,
+        offset: [0,-7]
+});
+   map.on('mouseenter', 'proto_fossils', (e) => {
+    map.getCanvas().style.cursor = 'pointer'; // Change cursor to pointer
+
+    // Access properties and coordinates from the feature
+    const props = e.features[0].properties;
+    const coords = e.features[0].geometry.coordinates.slice();
+
+    // Create custom HTML with multiple details
+    const content = `
+        <div>
+            <h3>${props.SPECIES}</h3>
+            <p>Period: ${props.PERIOD}</p>
+            <p>Epoch: ${props.EPOCH}</p>
+            <p>Stage: ${props.STAGE}</p>
+            <p>Formation: ${props.FORMATION}</p>
+            <p>Paleo Environment: ${props.PAL_ENV}</p>
+            <p>Paleo Climate: ${props.PAL_CLIM}</p>
+            <p>Rock Types: ${props.PRIM_ROCK} ${props.SEC_ROCK} ${props.THIRD_ROCK} </p>
+            <p>Rock Composition: ${props.PRIM_COMP} ${props.SEC_COMP} ${props.THIR_COMP} </p>
+        </div>
+    `;
+    
+    // Add popup to map
+    popup.setLngLat(coords).setHTML(content).addTo(map);
+}); 
+    map.on('mouseenter', 'proto_fossils', function () {
+        map.getCanvas().style.cursor = 'pointer';
+   });
+    map.on('mouseleave', 'proto_fossils', function () {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+            });
+</script>
+
+</body>
+
+</html>
